@@ -11,7 +11,7 @@ The final solution integrates the best-performing model into a Flask application
 - Linear Regression
 - Lasso Regression
 - Ridge Regression
-- K-Naerest Neighbours
+- K-Nearest Neighbours
 - Decision-Trees
 - Random Forest Regressor
 - XGBoost Regressor
