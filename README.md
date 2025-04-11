@@ -55,7 +55,7 @@ The following regression models were trained and compared:
  Displays the predicted resale price in Indian currency format (₹).
 
 
-🚀 How to Run Locally
+## 🚀 How to Run Locally
 1. Clone the Repository
 ```
 git clone https://github.com/your-username/vroom-value.git
