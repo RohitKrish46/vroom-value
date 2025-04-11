@@ -80,17 +80,20 @@ Navigate to port 5000
 ## 📸 App Screenshots
 
 🏠 Home Page
+
 "A page with an introduction to the app"
 
 ![CarPredict _home](https://github.com/user-attachments/assets/2b43f12c-c7c3-46c6-a4fa-57c794a838c2)
 
 📋 Predict Page
+
 "Form interface for users to input car details"
 
 ![CarPredict _predict](https://github.com/user-attachments/assets/241444d8-bcef-416a-b6a2-f1efd44d8bc7)
 
 
 💸 Result Page
+
 "Estimated resale price shown in Indian Rupees"
 
 ![CarPredict _result](https://github.com/user-attachments/assets/c090cfa6-34d7-4dfc-82d5-9fa0af23e29d)
