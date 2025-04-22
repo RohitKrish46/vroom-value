@@ -1,7 +1,7 @@
 import os
 import zipfile
 from abc import ABC, abstractmethod
-import pandas as pd
+import pandas as pd 
 
 # abstract class for data ingestion
 class DataIngestion(ABC):
@@ -18,7 +18,14 @@ class ZipDataIngestion(DataIngestion):
         if not file_path.endswith('.zip'):
             raise ValueError("The provided file is not a .zip file.")
         
+        # ensure the extracted_data directory is cleaned up
+        if os.path.exists("extracted_data"):
+            for file in os.listdir("extracted_data"):
+                os.remove(os.path.join("extracted_data", file))
+            os.rmdir("extracted_data")
+        
         # extract the zip file
+        os.makedirs("extracted_data", exist_ok=True)
         with zipfile.ZipFile(file_path, "r") as f:
             f.extractall("extracted_data")
 
@@ -45,3 +52,18 @@ class DataIngestionFactory:
             return ZipDataIngestion()
         else:
             raise ValueError(f"Unsupported file type. No ingestor available for{file_extension}")
+
+
+if __name__ == "__main__":
+    
+    # # file path
+    # file_path = "data/Archive.zip"
+    # # determine file extension
+    # file_extension = os.path.splitext(file_path)[1]
+    # # get the appropriate data ingestor
+    # ingestor = DataIngestionFactory.get_data_ingestor(file_extension)
+    # # ingest the data
+    # df = ingestor.ingest_data(file_path)
+    # # print the first few rows of the DataFrame
+    # print(df.head())
+    pass
