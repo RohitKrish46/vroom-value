@@ -26,7 +26,7 @@ class UnivariateAnalysisStrategy(ABC):
 # --------------------------------
 # This strategy analyzes numerical features by plotting their distribution
 class NumericalFeatureAnalysisStrategy(UnivariateAnalysisStrategy):
-    def analyze(self, df: pd.DataFrame, feature: str):
+    def analyze(self, df: pd.DataFrame, features: list):
         """
         Plots the distribution of a numerical feature using a histogram and KDE.
 
@@ -37,20 +37,19 @@ class NumericalFeatureAnalysisStrategy(UnivariateAnalysisStrategy):
         Returns:
         None: Displays a histogram and KDE plot of the numerical feature.
         """
-        plt.figure(figsize=(10, 6))
-        sns.histplot(df[feature], kde=True)
-        plt.title(f"Distribution of {feature}", weight="bold", fontsize=20)
-        plt.xlabel(feature)
-        if feature == "selling_price":
-            plt.xlim(0, 3000000)
-        plt.ylabel("Frequency")        
-        plt.show()
+        plt.figure(figsize = (15, 15))
+        plt.suptitle('Univariate Analysis of Numerical Features', fontsize=20, fontweight='bold', alpha=0.8, y=1)
+        for i in range(len(features)):
+            plt.subplot(5, 3, i+1)
+            sns.kdeplot(x=df[features[i]], shade=True, color='b')
+            plt.xlabel(features[i])
+            plt.tight_layout()
 
 # Strategy for Categorical Features
 # --------------------------------
 # This strategy analyzes categorical features by plotting their frequencydistribution
 class CategoricalFeatureAnalysisStrategy(UnivariateAnalysisStrategy):
-    def analyze(self, df: pd.DataFrame, feature: str):
+    def analyze(self, df: pd.DataFrame, features: list):
         """
         Plots the distribution of a categorical feature using a bar plot.
 
@@ -61,13 +60,15 @@ class CategoricalFeatureAnalysisStrategy(UnivariateAnalysisStrategy):
         Returns:
         None: Displays a barplot of the categorical feature.
         """
-        plt.figure(figsize=(10, 6))
-        sns.countplot(x=feature, data=df, palette="muted")
-        plt.title(f"Distribution of {feature}")
-        plt.xlabel(feature)
-        plt.xticks(rotation=45)
-        plt.ylabel("Count")
-        plt.show()
+        plt.figure(figsize=(20, 15))
+        plt.suptitle('Univariate Analysis of Categorical Features', fontsize=20, fontweight='bold', alpha=0.8, y=1.)
+        # not visualizing categories with too many categories
+        for i in range(0, len(features)):
+            plt.subplot(2, 2, i+1)
+            sns.countplot(x=df[features[i]])
+            plt.xlabel(features[i])
+            plt.xticks(rotation=45)
+            plt.tight_layout()
 
 
 # Context class that helps you choose a Univariate Analysis Strategy
