@@ -5,7 +5,7 @@ import pandas as pd
 # --------------------------------------------------
 # This class defines a common interface for data inspection strategies.
 # Subclasses must implement the inspect method.
-class DataInspectionStratergy(ABC):
+class DataInspectionStrategy(ABC):
     @abstractmethod
     def inspect(self, df: pd.DataFrame):
         """
@@ -22,7 +22,7 @@ class DataInspectionStratergy(ABC):
 # Strategy for Data Types Inspection
 # --------------------------------------------
 # This strategy inspects the data types of each column and counts non-null values.
-class DataTypesInspectionStrategy(DataInspectionStratergy):
+class DataTypesInspectionStrategy(DataInspectionStrategy):
     def inspect(self, df: pd.DataFrame):
         """
         Inspect the data types and non null counts of each column.
@@ -39,7 +39,7 @@ class DataTypesInspectionStrategy(DataInspectionStratergy):
 # Strategy for Summary Statistics Inspection
 # -----------------------------------------------------
 # This strategy provides summary statistics for both numerical and categorical features.
-class SummaryInspectionStrategy(DataInspectionStratergy):
+class SummaryInspectionStrategy(DataInspectionStrategy):
     def inspect(self, df: pd.DataFrame):
         """
         Prints summary statistics for both numerical and categorical features.
@@ -59,10 +59,10 @@ class SummaryInspectionStrategy(DataInspectionStratergy):
 # ------------------------------------------------
 # This class allows you to switch between different data inspection strategies.
 class DataInspector:
-    def __init__(self, strategy: DataInspectionStratergy):
+    def __init__(self, strategy: DataInspectionStrategy):
         self.strategy = strategy
 
-    def set_strategy(Self, strategy: DataInspectionStratergy):
+    def set_strategy(Self, strategy: DataInspectionStrategy):
         """
         Sets a new strategy for the DataInspector.
 
