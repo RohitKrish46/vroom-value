@@ -143,18 +143,18 @@ class OutlierDetector:
 
 # Example usage
 if __name__ == "__main__":
-    # Example dataframe
-    df = pd.read_csv("D:/Repositories/vroom-value-with-pipelines/data/Archive.zip", index_col=[0])
-    df_numeric = df.select_dtypes(include=[np.number]).dropna()
+    # # Example dataframe
+    # df = pd.read_csv("D:/Repositories/vroom-value-with-pipelines/data/Archive.zip", index_col=[0])
+    # df_numeric = df.select_dtypes(include=[np.number]).dropna()
 
-    # Initialize the OutlierDetector with the Z-Score based Outlier Detection Strategy
-    outlier_detector = OutlierDetector(IQROutlierDetection())
+    # # Initialize the OutlierDetector with the Z-Score based Outlier Detection Strategy
+    # outlier_detector = OutlierDetector(ZScoreDetection())
 
-    # Detect and handle outliers
-    outliers = outlier_detector.detect_outliers(df_numeric)
-    df_cleaned = outlier_detector.handle_outliers(df_numeric, method="remove")
-    print(outliers.shape)
-    print(df_cleaned.shape)
-    # Visualize outliers in specific features
-    #outlier_detector.visualize_outliers(df_cleaned, features=["selling_price", "km_driven"])
+    # # Detect and handle outliers
+    # outliers = outlier_detector.detect_outliers(df_numeric)
+    # df_cleaned = outlier_detector.handle_outliers(df_numeric, method="remove")
+    # print(outliers.shape)
+    # print(df_cleaned.shape)
+    # # Visualize outliers in specific features
+    # outlier_detector.visualize_outliers(df_cleaned, features=["selling_price", "km_driven"])
     pass
