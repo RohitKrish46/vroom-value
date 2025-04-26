@@ -41,6 +41,7 @@ class ZipDataIngestion(DataIngestion):
         # read the csv file into a pandas DataFrame
         csv_file_path = os.path.join("extracted_data", csv_files[0])
         df = pd.read_csv(csv_file_path)
+        df = df.drop(columns=["Unnamed: 0", "model", "brand"])
         return df
     
 # factory class to create data ingestors
@@ -56,14 +57,14 @@ class DataIngestionFactory:
 
 if __name__ == "__main__":
     
-    # # file path
-    # file_path = "data/Archive.zip"
-    # # determine file extension
-    # file_extension = os.path.splitext(file_path)[1]
-    # # get the appropriate data ingestor
-    # ingestor = DataIngestionFactory.get_data_ingestor(file_extension)
-    # # ingest the data
-    # df = ingestor.ingest_data(file_path)
-    # # print the first few rows of the DataFrame
-    # print(df.head())
+    # file path
+    file_path = "data/Archive.zip"
+    # determine file extension
+    file_extension = os.path.splitext(file_path)[1]
+    # get the appropriate data ingestor
+    ingestor = DataIngestionFactory.get_data_ingestor(file_extension)
+    # ingest the data
+    df = ingestor.ingest_data(file_path)
+    # print the first few rows of the DataFrame
+    print(df.head())
     pass
