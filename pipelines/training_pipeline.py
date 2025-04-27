@@ -4,9 +4,14 @@ from steps.feature_engineering_step import feature_engineering_step
 from steps.outlier_detection_step import outlier_detection_step
 from steps.data_splitter_step import data_splitter_step
 from steps.model_building_step import model_building_step
+from steps.model_evaluator_step import model_evaluator_step
 from zenml import Model, pipeline, step
 
-@pipeline(enable_cache=False)
+@pipeline(
+        enable_cache=False,
+        # The name uniquely identifies this model
+        name="prices_predictor",
+        )
 def ml_pipeline():
     """Defining an end to end machine learning pipeline."""
 
@@ -30,4 +35,13 @@ def ml_pipeline():
     # model building step
     model = model_building_step(X_train, y_train)
 
-    pass
+    # Model Evaluation Step
+    evaluation_metrics, mse = model_evaluator_step(
+        trained_model=model, X_test=X_test, y_test=y_test
+    )
+
+    return model
+
+if __name__ == "__main__":
+    # Running the pipeline
+    run = ml_pipeline()
