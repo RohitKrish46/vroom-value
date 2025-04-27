@@ -4,9 +4,9 @@ from src.outlier_detection import OutlierDetector, ZScoreDetection, IQROutlierDe
 from zenml import step
 
 @step
-def outlier_detection_step(df: pd.DataFrame, column_name: str) -> pd.DataFrame:
+def outlier_detection_step(df: pd.DataFrame) -> pd.DataFrame:
     """Performs outlier detection using OutlierDetector and the specified strategy."""
-    logging.info(f"Starting outlier detection step with dataframe shape: {df.shape} and column name: {column_name}")
+    logging.info(f"Starting outlier detection step with dataframe shape: {df.shape}")
 
     if df is None:
         logging.warning("No dataframe provided for outlier detection.")
@@ -15,14 +15,11 @@ def outlier_detection_step(df: pd.DataFrame, column_name: str) -> pd.DataFrame:
     if not isinstance(df, pd.DataFrame):
         logging.warning(f"Input is not a pandas dataframe. Got {type(df)}")
         raise ValueError("Input must be a pandas dataframe.")
-    
-    if column_name not in df.columns:
-        logging.warning(f"Column '{column_name}' not found in the dataframe.")
-        raise ValueError(f"Column '{column_name}' not found in the dataframe.")
     # ensure only numeric columns are used for outlier detection
     df_numeric = df.select_dtypes(include=[int, float])
 
-    outlier_detector = OutlierDetector(ZScoreDetection())
+    outlier_detector = OutlierDetector(IQROutlierDetection())
     outliers = outlier_detector.detect_outliers(df_numeric)
-    #df_cleaned = outlier_detector.handle_outliers(df_numeric, method="cap")
-    return outliers
+    df_cleaned = outlier_detector.handle_outliers(df_numeric, method="cap")
+    df_cleaned = pd.concat([df_numeric, df.drop(df_numeric.columns, axis=1)], axis=1)
+    return df_cleaned
