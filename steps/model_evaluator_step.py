@@ -17,7 +17,7 @@ def model_evaluator_step(
     trained_model: Pipeline, 
     X_test: pd.DataFrame, 
     y_test: pd.Series
-) -> Tuple[dict, float]:
+) -> Tuple[float, float]:
     """
     Performs model evaluation using ModelEvaluator and the specified strategy.
     
@@ -27,7 +27,7 @@ def model_evaluator_step(
         y_test (pd.Series): The true labels.
 
     Returns:
-        Tuple[dict, float]: The evaluation metrics and MSE score.
+        Tuple[float, float]: Returns the MSE score and R2 score.
     """
 
     # Validate input types
@@ -52,13 +52,13 @@ def model_evaluator_step(
     )
 
     # Validate metrics output
-    if not isinstance(metrics, dict):
-        raise ValueError("Model evaluation metrics must be a dictionary.")
+    if not isinstance(metrics, Tuple):
+        raise ValueError("Model evaluation metrics must be a tuple.")
 
     # Log metrics to MLflow
-    mse = metrics.get("mse", None)
-    r2 = metrics.get("r2", None)
+    mse = metrics[0]
+    r2 = metrics[1]
     mlflow.log_metric("mse", mse)
     mlflow.log_metric("r2", r2)
 
-    return metrics, mse
+    return (mse, r2)
