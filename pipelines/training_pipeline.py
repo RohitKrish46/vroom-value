@@ -36,7 +36,7 @@ def ml_pipeline():
     model = model_building_step(X_train, y_train)
 
     # Model Evaluation Step
-    evaluation_metrics, mse = model_evaluator_step(
+    r2, mse = model_evaluator_step(
         trained_model=model, X_test=X_test, y_test=y_test
     )
 
