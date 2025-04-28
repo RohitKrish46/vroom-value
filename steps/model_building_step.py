@@ -1,5 +1,5 @@
 import logging
-from typing import Annotated
+from typing import Annotated, Optional
 from category_encoders.binary import BinaryEncoder
 import mlflow
 import pandas as pd
@@ -11,6 +11,11 @@ from sklearn.preprocessing import OneHotEncoder
 from zenml import ArtifactConfig, step
 from zenml.client import Client
 from zenml import Model
+from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor,AdaBoostRegressor, GradientBoostingRegressor
+from sklearn.svm import SVR
 
 # Get the active experiment tracker from ZenML
 experiment_tracker = Client().active_stack.experiment_tracker
@@ -22,15 +27,43 @@ model = Model(
     description="Price prediction model for houses.",
 )
 
+def get_model(model_name: str):
+    if model_name == "linear_regression":
+        return LinearRegression()
+    elif model_name == "random_forest":
+        return RandomForestRegressor()
+    elif model_name == "svr":
+        return SVR()
+    elif model_name == "lasso":
+        return Lasso()
+    elif model_name == "ridge":
+        return Ridge()
+    elif model_name == "adaboost":
+        return AdaBoostRegressor()
+    elif model_name == "gradient_boosting":
+        return GradientBoostingRegressor()
+    elif model_name == "knn":
+        return KNeighborsRegressor()
+    elif model_name == "decision_tree":
+        return DecisionTreeRegressor()
+    else:
+        raise ValueError(f"Model {model_name} not supported.")
+
 @step(enable_cache=False, experiment_tracker=experiment_tracker.name, model=model)
 def model_building_step(
-    X_train: pd.DataFrame, y_train: pd.Series
+    X_train: pd.DataFrame,
+    y_train: pd.Series,
+    model_name: str = "linear_regression",
 ) -> Annotated[Pipeline, ArtifactConfig(name="sklearn_pipeline", is_model_artifact=True)]:
+    """Build and train a model with preprocessing."""
     
     if not isinstance(X_train, pd.DataFrame):
         raise TypeError("X_train must be a pandas DataFrame.")
     if not isinstance(y_train, pd.Series):
         raise TypeError("y_train must be a pandas Series.")
+
+    # If no model is provided, default to LinearRegression
+    model_instance = get_model(model_name)
 
     binary_cols = ["car_name"]
     categorical_cols = X_train.select_dtypes(include=["object", "category"]).columns.tolist()
@@ -56,14 +89,15 @@ def model_building_step(
         ]
     )
 
-    pipeline = Pipeline(steps=[("preprocessor", preprocessor), ("model", LinearRegression())])
+    # ✅ Now, use the provided model_instance
+    pipeline = Pipeline(steps=[("preprocessor", preprocessor), ("model", model_instance)])
 
     if not mlflow.active_run():
         mlflow.start_run()
 
     try:
         mlflow.sklearn.autolog()
-        logging.info("Building and training the Linear Regression model.")
+        logging.info(f"Building and training the model: {model_instance.__class__.__name__}")
         pipeline.fit(X_train, y_train)
         logging.info("Model training completed.")
 
