@@ -15,14 +15,7 @@ Vroom Value is an end-to-end MLOps solution for predicting used car prices in th
 - [Features](#features)
 - [Architecture and Workflow](#architecture-and-workflow)
 - [Installation & Setup](#installation--setup)
-  - [Prerequisites](#prerequisites)
-  - [Initial Setup Using UV (Recommended)](#initial-setup-using-uv-recommended)
-  - [ZenML Setup](#zenml-setup)
 - [Usage](#usage)
-  - [Run the entire Pipeline](#run-the-entire-pipeline)
-  - [Start MLflow Dashboard](#start-mlflow-dashboard)
-  - [Launch Web App](#launch-web-app)
-  - [Optional: Access ZenML Dashboard](#optional-access-zenml-dashboard)
 - [Application Screenshots](#application-screenshots)
 - [Folder Structure](#folder-structure)
 - [Technologies Stack](#technologies-stack)
@@ -167,11 +160,11 @@ zenml model-deployer register mlflow --flavor=mlflow
 zenml stack register local-mlflow-stack -a default -o default -d mlflow -e mlflow_tracker --set
 ```
 ###  Usage
-
 1. **Run the entire Pipeline**
 ```
 python run_pipelines.py
 ```
+
 2. **Start MLflow Dashboard**
 ```
 # on a separate terminal instance
@@ -181,7 +174,6 @@ mlflow ui --backend-store-uri <mlflow_tracking_uri>
 > Can get <mlflow_tracking_uri> using get_tracking_uri()
 
 Access dashboard at: `http://localhost:5000`
-
 3. **Launch Web App**
 ```
 python app.py
