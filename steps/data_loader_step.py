@@ -1,4 +1,4 @@
-from zenml import pipeline, step
+from zenml import step
 from zenml.client import Client
 import pandas as pd
 from typing import Tuple
