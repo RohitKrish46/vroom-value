@@ -10,3 +10,4 @@ wheels/
 .venv
 /mlruns/
 test.py
+test2.py
