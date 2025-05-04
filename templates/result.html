@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result - Car Price Prediction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .navbar {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #c7711e;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #c7711e;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .result-boxx {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 4rem;
+            backdrop-filter: blur(10px);
+        }
+        .submit-btn {
+            background: #c7711e;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: transform 0.2s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            background: #ff8844;
+        }
+
+        .cta-buttons {
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+            margin-top: 4rem;
+            
+        }
+
+        .button {
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .primary-button {
+            text-align: center;
+            background: #c7711e;
+            color: white;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">Vroom Value</a>
+        <div class="nav-links">
+            <a href="#solutions">Solutions</a>
+            <a href="#about">About us</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+        
+    <div class="main-content">
+        <header>
+            <h1>Car Price Prediction</h1>
+            <p>Your estimated price for {{ car_name }} is displayed below.</p>
+        </header>
+        <main>
+            <div class="result-boxx">
+                <h2>Estimated Price: ₹{{ price }}</h2>
+            </div>
+            <div class="cta-buttons">
+                <a href="/predict" class="button primary-button">Predict Another Price</a>  
+                    <!-- <button class="submit-btn">Predict Another Price</button> -->
+                <!-- </a> -->
+            </div>
+            <div class="cta-buttons">
+                <a href="/" class="button primary-button">Back to Home</a>
+                    <!-- <button class="submit-btn">Back to Home</button>
+                </a> -->
+                </div>
+            
+        </main>
+
+    </div>
+</body>
+</html>

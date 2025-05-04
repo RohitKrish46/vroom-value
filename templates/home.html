@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Price Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #ffffff;
+            padding: 0.5rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: #333333;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #007BFF;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 4rem;
+            background-color: #ffffff;
+        }
+
+        .hero .text-section {
+            max-width: 50%;
+        }
+
+        .hero .text-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #333333;
+        }
+
+        .hero .text-section p {
+            font-size: 1.2rem;
+            color: #555555;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero .text-section a {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .hero .text-section a:hover {
+            background-color: #0056b3;
+        }
+
+        .hero .image-section img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <a href="#" class="logo">CarPriceAI</a>
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="/predict">Predict</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="text-section">
+            <h1>Predict Car Prices with AI</h1>
+            <p>Leverage the power of machine learning to estimate the value of any car. Our advanced AI models provide
+                accurate and reliable predictions to help you make informed decisions.</p>
+            <a href="/predict">Get Started</a>
+        </div>
+        <div class="image-section">
+            <img src="/static/prosche.jpg" alt="Car Image" style="width:900px;height:700px;">
+        </div>
+    </section>
+</body>
+
+</html>
