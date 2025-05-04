@@ -1,7 +1,5 @@
 import subprocess
 import sys
-from zenml.integrations.mlflow.mlflow_utils import get_tracking_uri
-import mlflow
 def serve_model(model_uri: str, port: int = 5001):
     """
     Serve the MLflow model on the specified port using the mlflow models serve command.
