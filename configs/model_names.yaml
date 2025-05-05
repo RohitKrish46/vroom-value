@@ -1,0 +1,10 @@
+models:
+  - random_forest
+  - linear_regression
+  - svr
+  - lasso
+  - ridge
+  - adaboost
+  - gradient_boosting
+  - knn
+  - decision_tree
