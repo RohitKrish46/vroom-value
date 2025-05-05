@@ -4,6 +4,7 @@
 [![MLflow](https://img.shields.io/badge/MLflow-2.22%2B-orange)](https://mlflow.org/)
 [![ZenML](https://img.shields.io/badge/ZenML-0.81.0%2B-blueviolet)](https://zenml.io/)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
+![CI/CD](https://img.shields.io/badge/CI%2FCD-ZenML%20-blue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
