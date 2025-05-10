@@ -8,17 +8,19 @@ from pipelines.training_pipeline import ml_pipeline
 from pipelines.model_selection_pipeline import model_selection_pipeline
 from pipelines.hyperparameter_tuning_pipeline import hyperparameter_tuning_pipeline
 from utils.deploy import serve_model
+from utils.model_loader import load_model_names
+from utils.dataset_loader import load_data_path
 import warnings
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def run_data_engineering_pipeline():
+def run_data_engineering_pipeline(data_path: str = None):
     """Run the data engineering pipeline and return its run ID."""
     logger.info("Running Data Engineering pipeline...")
     try:
-        data_engineering_run = data_engineering_pipeline()
+        data_engineering_run = data_engineering_pipeline(data_path)
         logger.info("Data Engineering pipeline completed.")
         return str(data_engineering_run.id)
     except Exception as e:
@@ -67,9 +69,9 @@ def run_hyperparameter_tuning_pipeline(top_run_ids, data_engineering_run_id):
 
 def retrieve_and_print_results(model_tune_step_outputs, retrained_model_id):
     """Retrieve and print the results of the hyperparameter tuning pipeline."""
-    retrained_model_run_id = retrained_model_id["output_1"][0].load()
-    best_run_id = model_tune_step_outputs["output_0"][0].load()
-    best_params = model_tune_step_outputs["output_1"][0].load()
+    retrained_model_run_id = retrained_model_id["retrained_model_run_id"][0].load()
+    best_run_id = model_tune_step_outputs["best_run_id"][0].load()
+    best_params = model_tune_step_outputs["best_params"][0].load()
     
     mlflow.set_tracking_uri(get_tracking_uri())
     mlflow.get_run(best_run_id)
@@ -101,10 +103,10 @@ def main():
     
     try:
         # Run all pipelines first
-        data_engineering_run_id = run_data_engineering_pipeline()
+        data_path = load_data_path()
+        data_engineering_run_id = run_data_engineering_pipeline(data_path)
         
-        models = ["random_forest", "linear_regression", "svr", "lasso", 
-                "ridge", "adaboost", "gradient_boosting", "knn", "decision_tree"]
+        models = load_model_names()
         run_training_pipelines(models, data_engineering_run_id)
         
         top_run_ids = run_model_selection_pipeline()
@@ -117,6 +119,7 @@ def main():
         # Only after all pipelines have completed, serve the model
         logger.info("All pipelines completed successfully. Starting model serving...")
         serve_retrained_model(retrained_model_run_id)
+    
     except Exception as e:
         logger.error(f"Error in pipeline execution: {e}")
         raise
