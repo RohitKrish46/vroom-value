@@ -89,7 +89,7 @@ def model_building_step(
         ]
     )
 
-    # ✅ Now, use the provided model_instance
+    # now, use the provided model_instance
     pipeline = Pipeline(steps=[("preprocessor", preprocessor), ("model", model_instance)])
 
     if not mlflow.active_run():
