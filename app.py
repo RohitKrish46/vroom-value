@@ -48,7 +48,7 @@ def predict():
                 ]
 
             }
-            car_name =features['dataframe_records'][0]['car_name']
+            car_name = features['dataframe_records'][0]['car_name']
             # Convert the input data to JSON format
             json_data = json.dumps(features)
             print(json_data)
